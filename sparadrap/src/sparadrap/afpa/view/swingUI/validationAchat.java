@@ -213,18 +213,22 @@ public class validationAchat extends JFrame {
             return;
         }
 
+        // Vérifier si le médicament est déjà dans le panier
         boolean dejaPresent = false;
         for (int i = 0; i < medicamentsCommande.size(); i++) {
             if (medicamentsCommande.get(i).getNom().equalsIgnoreCase(nomMedic)) {
+                // Juste mettre à jour la quantité
                 quantitesMedicaments.set(i, quantitesMedicaments.get(i) + quantite);
                 dejaPresent = true;
                 break;
             }
         }
 
+        // Si pas déjà présent, ajouter le médicament
         if (!dejaPresent) {
+            // Créer une référence au médicament original (sans quantité dedans)
             Medicament medicamentCommande = new Medicament(
-                    quantite,
+                    0,
                     medicamentTrouve.getDateMiseEnService(),
                     medicamentTrouve.getPrix(),
                     medicamentTrouve.getCategorie(),
@@ -318,22 +322,40 @@ public class validationAchat extends JFrame {
             priseEnCharge = true;
         }
 
+        List<Medicament> medicamentsAvecQuantites = new ArrayList<>();
+        for (int i = 0; i < medicamentsCommande.size(); i++) {
+            Medicament medOriginal = medicamentsCommande.get(i);
+            int quantite = quantitesMedicaments.get(i);
+
+            // Créer un nouveau médicament avec la bonne quantité
+            Medicament medAvecQte = new Medicament(
+                    quantite,  // ← La vraie quantité
+                    medOriginal.getDateMiseEnService(),
+                    medOriginal.getPrix(),
+                    medOriginal.getCategorie(),
+                    medOriginal.getNom()
+            );
+            medicamentsAvecQuantites.add(medAvecQte);
+        }
+
         // Créer la commande
-        Commande.TypeAchat typeAchat = "DIRECT".equalsIgnoreCase(titreTypeLabel.getText()) ? Commande.TypeAchat.DIRECT : Commande.TypeAchat.ORDONNANCE;
+        Commande.TypeAchat typeAchat = "DIRECT".equalsIgnoreCase(titreTypeLabel.getText())
+                ? Commande.TypeAchat.DIRECT
+                : Commande.TypeAchat.ORDONNANCE;
+
         int quantiteTotale = quantitesMedicaments.stream().mapToInt(Integer::intValue).sum();
+
         Commande commande = new Commande(
                 new java.sql.Date(System.currentTimeMillis()),
                 typeAchat,
                 comboBoxMedecin.getSelectedItem().toString(),
                 comboBoxPatient.getSelectedItem().toString(),
-                new ArrayList<>(medicamentsCommande),
+                medicamentsAvecQuantites,  // ← Liste avec les bonnes quantités
                 quantiteTotale,
                 prixTotal,
                 null,
                 priseEnCharge
         );
-
-        Commande.getCommandes().add(commande);
 
         // Message adapté selon le type d'achat
         String message = "Commande validée !\n" +
@@ -351,7 +373,6 @@ public class validationAchat extends JFrame {
         menu.setVisible(true);
         this.dispose();
     }
-
 
     private void quitter() {
         int reponse = JOptionPane.showConfirmDialog(this, "Voulez-vous quitter l'application ?", "Quitter", JOptionPane.YES_NO_OPTION);
