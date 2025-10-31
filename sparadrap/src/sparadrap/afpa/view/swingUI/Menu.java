@@ -81,7 +81,7 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 historiqueOrdonnance historiqueOrdonnance = null;
                 try {
-                    historiqueOrdonnance = new historiqueOrdonnance();
+                    historiqueOrdonnance = new historiqueOrdonnance(Menu.this);
                 } catch (SaisieException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -101,27 +101,32 @@ public class Menu extends JFrame {
     }
 
     private void displayTypeAchat() {
-        choixAchat choixAchat = new choixAchat();
+        choixAchat choixAchat = new choixAchat(this);
+        this.setVisible(false);
         choixAchat.setVisible(true);
     }
 
     private void displayHistoriqueAchat() {
-        historiqueAchat historiqueAchat = new historiqueAchat();
+        historiqueAchat historiqueAchat = new historiqueAchat(this);
+        this.setVisible(false);
         historiqueAchat.setVisible(true);
     }
 
     private void displaymedecin() {
-        consulterMedecin consulterMedecin = new consulterMedecin();
+        consulterMedecin consulterMedecin = new consulterMedecin(this);
+        this.setVisible(false);
         consulterMedecin.setVisible(true);
     }
 
     private void displayAddClient() throws SaisieException {
-        consulterClient consulterClient = new consulterClient();
+        consulterClient consulterClient = new consulterClient(this);
+        this.setVisible(false);
         consulterClient.setVisible(true);
     }
 
     private void displayAddMedic() throws SaisieException {
-        addMedic addMedic = new addMedic();
+        addMedic addMedic = new addMedic(this);
+        this.setVisible(false);
         addMedic.setVisible(true);
     }
 

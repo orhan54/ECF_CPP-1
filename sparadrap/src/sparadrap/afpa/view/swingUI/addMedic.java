@@ -18,10 +18,12 @@ public class addMedic extends JFrame {
     private JButton quitterButton;
     private JComboBox comboBoxDetailsMedic;
     private JTable tableDetailsMedic;
+    private JFrame previousFrame;
 
     private DefaultTableModel tableModel;
 
-    public addMedic() {
+    public addMedic(JFrame previousFrame) {
+        this.previousFrame = previousFrame;
 
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\Desktop\\ECF-CPP1_CICEK_Orhan\\ECF-CPP-1\\sparadrap\\src\\sparadrap\\afpa\\image\\miniLogo.png");
         Dimension dimension = new Dimension(1600, 1000);
@@ -94,7 +96,10 @@ public class addMedic extends JFrame {
     }
 
     private void retour() {
-        this.dispose();
+        if (previousFrame != null) {
+            previousFrame.setVisible(true); // réaffiche la fenêtre précédente
+        }
+        this.dispose(); // ferme la fenêtre actuelle
     }
 
     private void quitter() {

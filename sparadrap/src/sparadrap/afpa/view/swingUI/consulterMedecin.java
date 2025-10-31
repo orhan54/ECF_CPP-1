@@ -27,6 +27,7 @@ public class consulterMedecin extends JFrame {
     private JTable tableFiltreInformation;
     private JLabel titreFiltreInfo;
     private String selectedValue;
+    private JFrame previousFrame;
 
     private DefaultTableModel tableModelMedecin;
 
@@ -40,7 +41,9 @@ public class consulterMedecin extends JFrame {
             "Date", "Nom médecin", "Nom patient", "Liste des médicaments"
     };
 
-    public consulterMedecin() {
+    public consulterMedecin(JFrame previousFrame) {
+        this.previousFrame = previousFrame;
+
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\Desktop\\ECF-CPP1_CICEK_Orhan\\ECF-CPP-1\\sparadrap\\src\\sparadrap\\afpa\\image\\miniLogo.png");
         Dimension dimension = new Dimension(1600, 1000);
 
@@ -210,7 +213,7 @@ public class consulterMedecin extends JFrame {
 
     // Appel de la view pour créer un médecin
     private void creerMedecin() {
-        registerMedecin registerMedecin = new registerMedecin();
+        registerMedecin registerMedecin = new registerMedecin(this);
         registerMedecin.setVisible(true);
     }
 
@@ -253,7 +256,10 @@ public class consulterMedecin extends JFrame {
 
     // Retour de la page
     private void retour() {
-        this.dispose();
+        if (previousFrame != null) {
+            previousFrame.setVisible(true); // réaffiche la fenêtre précédente
+        }
+        this.dispose(); // ferme la fenêtre actuelle
     }
 
     // Quitter l'application

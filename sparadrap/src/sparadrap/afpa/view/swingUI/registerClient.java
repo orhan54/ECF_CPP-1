@@ -30,6 +30,7 @@ public class registerClient extends JFrame {
     private JButton quitterButton;
     private JComboBox<String> comboBoxNomMedecin;
     private JComboBox<String> comboBoxMutuelle;
+    private JFrame previousFrame;
 
     // Patient en cours (null = création, sinon update)
     private Patient currentPatient;
@@ -37,7 +38,9 @@ public class registerClient extends JFrame {
     /**
      * Constructeur pour la création d'un nouveau patient
      */
-    public registerClient() {
+    public registerClient(JFrame previousFrame) {
+        this.previousFrame = previousFrame;
+
         initUI();
         remplirComboBox();
 
@@ -127,7 +130,10 @@ public class registerClient extends JFrame {
      * Retour à la fenêtre précédente
      */
     private void retour() {
-        this.dispose();
+        if (previousFrame != null) {
+            previousFrame.setVisible(true); // réaffiche la fenêtre précédente
+        }
+        this.dispose(); // ferme la fenêtre actuelle
     }
 
     /**
@@ -203,7 +209,7 @@ public class registerClient extends JFrame {
             }
 
             // retour vers consulterClient
-            consulterClient consulterClient = new consulterClient();
+            consulterClient consulterClient = new consulterClient(this);
             consulterClient.setVisible(true);
             this.dispose();
 

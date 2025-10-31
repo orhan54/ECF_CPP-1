@@ -31,6 +31,7 @@ public class validationAchat extends JFrame {
     private JLabel labelDeductionMutuelle;
     private JLabel labelPrixAPayer;
     private JLabel labelTauxMutuelle;
+    private JFrame previousFrame;
 
     private DefaultTableModel tableModelCommande;
     private DefaultTableModel tableModelMedicDispo;
@@ -38,7 +39,8 @@ public class validationAchat extends JFrame {
     private List<Medicament> medicamentsCommande = new ArrayList<>();
     private List<Integer> quantitesMedicaments = new ArrayList<>();
 
-    public validationAchat(String typeAchat) {
+    public validationAchat(String typeAchat, JFrame previousFrame) {
+        this.previousFrame = previousFrame;
 
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\Desktop\\ECF-CPP1_CICEK_Orhan\\ECF-CPP-1\\sparadrap\\src\\sparadrap\\afpa\\image\\miniLogo.png");
         Dimension dimension = new Dimension(1600, 1000);
@@ -295,6 +297,11 @@ public class validationAchat extends JFrame {
     private void retour() {
         int reponse = JOptionPane.showConfirmDialog(this, "Des médicaments sont dans le panier. Voulez-vous vraiment annuler ?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if (reponse == JOptionPane.YES_OPTION) {
+            // Réaffiche la fenêtre précédente si elle existe
+            if (previousFrame != null) {
+                previousFrame.setVisible(true);
+            }
+            // Ferme la fenêtre actuelle
             this.dispose();
         }
     }

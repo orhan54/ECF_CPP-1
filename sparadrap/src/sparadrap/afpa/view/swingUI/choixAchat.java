@@ -15,11 +15,14 @@ public class choixAchat extends JFrame {
     private JButton buttonQuitterChoix;
     private JButton retourChoixAchat;
     private JLabel titreChoixAchat;
+    private JFrame previousFrame;
 
     /**
      * Instantiates a new Choix achat.
      */
-    public choixAchat() {
+    public choixAchat(JFrame previousFrame) {
+        this.previousFrame = previousFrame;
+
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\Desktop\\ECF-CPP1_CICEK_Orhan\\ECF-CPP-1\\sparadrap\\src\\sparadrap\\afpa\\image\\miniLogo.png");
         Dimension dimension = new Dimension(1600, 1000);
 
@@ -49,7 +52,7 @@ public class choixAchat extends JFrame {
         retourChoixAchat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                back();
+                retour();
             }
         });
         buttonQuitterChoix.addActionListener(new ActionListener() {
@@ -61,17 +64,22 @@ public class choixAchat extends JFrame {
     }
 
     private void typeAchatDirect() {
-        validationAchat validationAchat = new validationAchat("direct");
+        validationAchat validationAchat = new validationAchat("direct", this);
+        this.setVisible(false);
         validationAchat.setVisible(true);
     }
 
     private void typeAchatOrdonnance() {
-        validationAchat validationAchat = new validationAchat("ordonnance");
+        validationAchat validationAchat = new validationAchat("ordonnance", this);
+        this.setVisible(false);
         validationAchat.setVisible(true);
     }
 
-    private void back() {
-        this.dispose();
+    private void retour() {
+        if (previousFrame != null) {
+            previousFrame.setVisible(true); // réaffiche la fenêtre précédente
+        }
+        this.dispose(); // ferme la fenêtre actuelle
     }
 
     private void quitter() {

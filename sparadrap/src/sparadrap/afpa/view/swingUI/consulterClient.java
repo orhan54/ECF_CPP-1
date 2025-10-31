@@ -19,10 +19,13 @@ public class consulterClient extends JFrame {
     private JButton créerUnCompteButton;
     private JComboBox comboBoxClient;
     private String selectedValue;
+    private JFrame previousFrame;
 
     private DefaultTableModel tableModelClient;
 
-    public consulterClient() throws SaisieException {
+    public consulterClient(JFrame previousFrame) throws SaisieException {
+        this.previousFrame = previousFrame;
+
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\User\\Desktop\\ECF-CPP1_CICEK_Orhan\\ECF-CPP-1\\sparadrap\\src\\sparadrap\\afpa\\image\\miniLogo.png");
         Dimension dimension = new Dimension(1600, 1000);
 
@@ -128,7 +131,7 @@ public class consulterClient extends JFrame {
 
     // Appel de la view pour créer un client
     private void addClient() {
-        registerClient registerClient = new registerClient();
+        registerClient registerClient = new registerClient(this);
         try {
             registerClient.setVisible(true);
         }catch(Exception e){
@@ -183,7 +186,10 @@ public class consulterClient extends JFrame {
     }
 
     private void retour() {
-        this.dispose();
+        if (previousFrame != null) {
+            previousFrame.setVisible(true); // réaffiche la fenêtre précédente
+        }
+        this.dispose(); // ferme la fenêtre actuelle
     }
 
     private void quitter() {

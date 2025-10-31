@@ -27,11 +27,13 @@ public class registerMedecin extends JFrame {
     private JButton buttonRetourRegisterMedecin;
     private JButton buttonValideRegisterMedecin;
     private JButton buttonQuitter;
+    private JFrame previousFrame;
 
     // Médecin en cours ou update
     private Medecin currentMedecin;
 
-    public registerMedecin() {
+    public registerMedecin(JFrame previousFrame) {
+        this.previousFrame = previousFrame;
         initUI();
 
         // Actions boutons
@@ -96,7 +98,10 @@ public class registerMedecin extends JFrame {
     }
 
     private void retour() {
-        this.dispose();
+        if (previousFrame != null) {
+            previousFrame.setVisible(true); // réaffiche la fenêtre précédente
+        }
+        this.dispose(); // ferme la fenêtre actuelle
     }
 
     private void valider() throws SaisieException {
@@ -141,7 +146,7 @@ public class registerMedecin extends JFrame {
             }
 
             // Retour vers le consulterMédecin
-            consulterMedecin consulterMedecin = new consulterMedecin();
+            consulterMedecin consulterMedecin = new consulterMedecin(this);
             consulterMedecin.setVisible(true);
             this.dispose();
 
