@@ -62,8 +62,11 @@ public class registerClient extends JFrame {
      * Constructeur pour l'édition d'un patient existant
      *
      * @param patient the patient
+     * @param previousFrame la fenêtre précédente
      */
-    public registerClient(Patient patient) {
+    public registerClient(Patient patient, JFrame previousFrame) {
+        this.previousFrame = previousFrame;
+
         initUI();
         remplirComboBox();
 

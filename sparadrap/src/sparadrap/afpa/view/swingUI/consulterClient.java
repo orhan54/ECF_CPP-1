@@ -141,9 +141,10 @@ public class consulterClient extends JFrame {
 
     // Appel de la view pour créer un client
     private void addClient() {
-        registerClient registerClient = new registerClient(this);
         try {
+            registerClient registerClient = new registerClient(this);
             registerClient.setVisible(true);
+            this.setVisible(false); // Cache la fenêtre consulterClient
         }catch(Exception e){
             System.out.println("Erreur sur la vue créer un client" + e.getMessage());
         }
@@ -155,8 +156,9 @@ public class consulterClient extends JFrame {
             String selectedClient = comboBoxClient.getSelectedItem().toString();
             for (Patient p : Patient.getPatients()) {
                 if (selectedClient.equals(p.getNom() + " " + p.getPrenom())) {
-                    registerClient updateClient = new registerClient(p);
+                    registerClient updateClient = new registerClient(p, this);
                     updateClient.setVisible(true);
+                    this.setVisible(false); // Cache la fenêtre consulterClient
                     System.out.println(p);
                 }
             }

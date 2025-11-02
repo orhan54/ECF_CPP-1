@@ -33,6 +33,9 @@ public class registerMedecin extends JFrame {
     // Médecin en cours ou update
     private Medecin currentMedecin;
 
+    /**
+     * Constructeur pour la création d'un nouveau médecin
+     */
     public registerMedecin(JFrame previousFrame) {
         this.previousFrame = previousFrame;
         initUI();
@@ -49,7 +52,14 @@ public class registerMedecin extends JFrame {
         buttonQuitter.addActionListener(e -> quitter());
     }
 
-    public registerMedecin(Medecin medecin) {
+    /**
+     * Constructeur pour l'édition d'un médecin existant
+     *
+     * @param medecin the medecin
+     * @param previousFrame la fenêtre précédente
+     */
+    public registerMedecin(Medecin medecin, JFrame previousFrame) {
+        this.previousFrame = previousFrame;
         initUI();
 
         this.currentMedecin = medecin;
@@ -77,7 +87,6 @@ public class registerMedecin extends JFrame {
             }
         });
         buttonQuitter.addActionListener(e -> quitter());
-
     }
 
     /**
@@ -155,8 +164,9 @@ public class registerMedecin extends JFrame {
             }
 
             // Retour vers le consulterMédecin
-            consulterMedecin consulterMedecin = new consulterMedecin(this);
-            consulterMedecin.setVisible(true);
+            if (previousFrame != null) {
+                previousFrame.setVisible(true);
+            }
             this.dispose();
 
         }catch(NullPointerException e){

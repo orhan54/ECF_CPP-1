@@ -225,6 +225,7 @@ public class consulterMedecin extends JFrame {
     private void creerMedecin() {
         registerMedecin registerMedecin = new registerMedecin(this);
         registerMedecin.setVisible(true);
+        this.setVisible(false); // Cache la fenêtre consulterMedecin
     }
 
     // Update un médecin
@@ -233,8 +234,9 @@ public class consulterMedecin extends JFrame {
             String selected = (String) comboBoxMedecin.getSelectedItem();
             for (Medecin m : Medecin.getMedecins()) {
                 if (selectedValue.equals(m.getNom() + " " + m.getPrenom())) {
-                    registerMedecin updateMedecin = new registerMedecin(m);
+                    registerMedecin updateMedecin = new registerMedecin(m, this);
                     updateMedecin.setVisible(true);
+                    this.setVisible(false); // Cache la fenêtre consulterMedecin
                 }
             }
         } catch (Exception e) {
