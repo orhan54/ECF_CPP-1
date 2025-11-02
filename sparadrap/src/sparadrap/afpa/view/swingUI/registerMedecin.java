@@ -3,11 +3,12 @@ package sparadrap.afpa.view.swingUI;
 import sparadrap.afpa.exception.SaisieException;
 import sparadrap.afpa.model.Lieu;
 import sparadrap.afpa.model.Medecin;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import static java.lang.Integer.parseInt;
 
@@ -88,13 +89,21 @@ public class registerMedecin extends JFrame {
 
         this.setTitle("Sparadrap");
         this.setIconImage(imageIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setPreferredSize(dimension);
         this.setResizable(false);
         this.setContentPane(contentPane);
 
         this.pack();
         this.setLocationRelativeTo(null);
+
+        // Gestionnaire pour la croix (X)
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                retour();
+            }
+        });
     }
 
     private void retour() {

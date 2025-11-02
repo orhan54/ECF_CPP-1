@@ -5,6 +5,8 @@ import sparadrap.afpa.model.Lieu;
 import sparadrap.afpa.model.Medecin;
 import sparadrap.afpa.model.Mutuelle;
 import sparadrap.afpa.model.Patient;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -102,13 +104,21 @@ public class registerClient extends JFrame {
 
         this.setTitle("Sparadrap");
         this.setIconImage(imageIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setPreferredSize(dimension);
         this.setResizable(false);
         this.setContentPane(contentPane);
 
         this.pack();
         this.setLocationRelativeTo(null);
+
+        // Gestionnaire pour la croix (X)
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                retour();
+            }
+        });
     }
 
     /**

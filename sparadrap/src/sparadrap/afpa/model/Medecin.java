@@ -17,7 +17,7 @@ public class Medecin extends Personne {
     private static List<Medecin> medecins = new ArrayList<Medecin>();
 
     // List des patients du medecin
-    public static List<Patient> patient = new ArrayList<>();
+    public List<Patient> patient = new ArrayList<>();
 
     /**
      * Instantiates a new Medecin.

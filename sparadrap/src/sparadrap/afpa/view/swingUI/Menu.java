@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Menu extends JFrame {
     private JPanel contentPane;
@@ -29,13 +31,21 @@ public class Menu extends JFrame {
         //les attributs
         this.setTitle("Sparadrap");
         this.setIconImage(imageIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setPreferredSize(dimension);
         this.setResizable(false);
         this.setContentPane(contentPane);
 
         this.pack();
         this.setLocationRelativeTo(null);
+
+        // Gestionnaire pour la croix (X)
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                quitter();
+            }
+        });
 
         buttonAchatMenu.addActionListener(new ActionListener() {
             @Override

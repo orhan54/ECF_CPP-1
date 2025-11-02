@@ -6,6 +6,8 @@ import sparadrap.afpa.model.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class validationAchat extends JFrame {
 
         this.setTitle("Sparadrap");
         this.setIconImage(imageIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setPreferredSize(dimension);
         this.setResizable(false);
         this.setContentPane(contentPane);
@@ -83,6 +85,14 @@ public class validationAchat extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         btnValiderAchat.setEnabled(false);
+
+        // Gestionnaire pour la croix (X)
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                retour();
+            }
+        });
 
         // Listeners
         btnRetourAchat.addActionListener(e -> retour());

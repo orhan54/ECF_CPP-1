@@ -18,8 +18,7 @@ public class Commande {
     // Attributs
     private Date dateCommande;
     private TypeAchat typeAchat;
-    private String nomMedecin;
-    private String nomPatient;
+    private String nomMedecin, nomPatient;
     private List<Medicament> medicaments;
     private int quantite;
     private double prix;
@@ -31,8 +30,8 @@ public class Commande {
     /**
      * Instantiates a new Commande.
      *
-     * @param pDateCommande         the p date commande
-     * @param pTypeAchat            the p type achat
+     * @param pDateCommande         the date commande
+     * @param pTypeAchat            the type achat
      * @param nomMedecin            the nom medecin
      * @param nomPatient            the nom patient
      * @param medicaments           the medicaments

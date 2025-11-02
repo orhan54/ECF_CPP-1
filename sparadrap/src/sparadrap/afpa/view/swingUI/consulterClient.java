@@ -7,6 +7,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class consulterClient extends JFrame {
     private JPanel contentPane;
@@ -32,7 +34,7 @@ public class consulterClient extends JFrame {
         //les attributs
         this.setTitle("Sparadrap");
         this.setIconImage(imageIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setPreferredSize(dimension);
         this.setResizable(false);
         this.setContentPane(contentPane);
@@ -46,6 +48,14 @@ public class consulterClient extends JFrame {
 
         this.pack();
         this.setLocationRelativeTo(null);
+
+        // Gestionnaire pour la croix (X)
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                retour();
+            }
+        });
 
         créerUnCompteButton.addActionListener(new ActionListener() {
             @Override
@@ -90,7 +100,7 @@ public class consulterClient extends JFrame {
         comboBoxClient.setSelectedItem(0);
 
         for(Patient p : Patient.getPatients()) {
-                comboBoxClient.addItem(p.getNom() + " " + p.getPrenom());
+            comboBoxClient.addItem(p.getNom() + " " + p.getPrenom());
         }
 
         comboBoxClient.addActionListener(new ActionListener() {
